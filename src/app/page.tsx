@@ -1,9 +1,29 @@
-import Image from "next/image";
+import { Payment, columns } from "@/components/users-table/columns";
+import { UsersTable } from "@/components/users-table/table";
 
-export default function Home() {
-    return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            hey
-        </main>
-    );
+async function getData(): Promise<Payment[]> {
+  return [
+    {
+      id: "728ed52f",
+      amount: 100,
+      status: "pending",
+      email: "m@example.com",
+    },
+    {
+      id: "489e1d42",
+      amount: 125,
+      status: "processing",
+      email: "example@gmail.com",
+    },
+  ];
+}
+
+export default async function Home() {
+  const data = await getData();
+
+  return (
+    <div className="container mx-auto py-10">
+      <UsersTable columns={columns} data={data} />
+    </div>
+  );
 }
