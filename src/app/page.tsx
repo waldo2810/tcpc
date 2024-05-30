@@ -1,5 +1,7 @@
+import { Button } from "@/components/ui/button";
 import { User, columns } from "@/components/users-table/columns";
 import { UsersTable } from "@/components/users-table/table";
+import { Plus } from "lucide-react";
 
 async function getData(): Promise<User[]> {
   return [
@@ -33,6 +35,96 @@ async function getData(): Promise<User[]> {
       rating: 4.2,
       lastLogin: "2024-05-28T16:45:00Z",
     },
+    {
+      id: "3",
+      name: "Carol Williams",
+      userRole: "Moderator",
+      status: "Active",
+      socialProfile: "https://facebook.com/carolwilliams",
+      promote: true,
+      rating: 4.2,
+      lastLogin: "2024-05-28T16:45:00Z",
+    },
+    {
+      id: "3",
+      name: "Carol Williams",
+      userRole: "Moderator",
+      status: "Active",
+      socialProfile: "https://facebook.com/carolwilliams",
+      promote: true,
+      rating: 4.2,
+      lastLogin: "2024-05-28T16:45:00Z",
+    },
+    {
+      id: "3",
+      name: "Carol Williams",
+      userRole: "Moderator",
+      status: "Active",
+      socialProfile: "https://facebook.com/carolwilliams",
+      promote: true,
+      rating: 4.2,
+      lastLogin: "2024-05-28T16:45:00Z",
+    },
+    {
+      id: "3",
+      name: "Carol Williams",
+      userRole: "Moderator",
+      status: "Active",
+      socialProfile: "https://facebook.com/carolwilliams",
+      promote: true,
+      rating: 4.2,
+      lastLogin: "2024-05-28T16:45:00Z",
+    },
+    {
+      id: "3",
+      name: "Carol Williams",
+      userRole: "Moderator",
+      status: "Active",
+      socialProfile: "https://facebook.com/carolwilliams",
+      promote: true,
+      rating: 4.2,
+      lastLogin: "2024-05-28T16:45:00Z",
+    },
+    {
+      id: "3",
+      name: "Carol Williams",
+      userRole: "Moderator",
+      status: "Active",
+      socialProfile: "https://facebook.com/carolwilliams",
+      promote: true,
+      rating: 4.2,
+      lastLogin: "2024-05-28T16:45:00Z",
+    },
+    {
+      id: "3",
+      name: "Carol Williams",
+      userRole: "Moderator",
+      status: "Active",
+      socialProfile: "https://facebook.com/carolwilliams",
+      promote: true,
+      rating: 4.2,
+      lastLogin: "2024-05-28T16:45:00Z",
+    },
+    {
+      id: "3",
+      name: "Carol Williams",
+      userRole: "Moderator",
+      status: "Active",
+      socialProfile: "https://facebook.com/carolwilliams",
+      promote: true,
+      rating: 4.2,
+      lastLogin: "2024-05-28T16:45:00Z",
+    },
+    {
+      id: "3",
+      name: "Carol Williams",
+      userRole: "Moderator",
+      status: "Active",
+      socialProfile: "https://facebook.com/carolwilliams",
+      promote: true,
+      rating: 4.2,
+      lastLogin: "2024-05-28T16:45:00Z",
+    },
   ];
 }
 
@@ -40,8 +132,14 @@ export default async function Home() {
   const data = await getData();
 
   return (
-    <div className="container mx-auto py-10">
-      <UsersTable columns={columns} data={data} />
+    <div className="min-h-screen max-w-5xl flex items-center justify-center mx-auto">
+      <div className="w-[90%] md:w-full">
+        <Button className="flex items-center gap-2" size="sm">
+          <Plus size={20} />
+          Add new user
+        </Button>
+        <UsersTable columns={columns} data={data} />
+      </div>
     </div>
   );
 }
