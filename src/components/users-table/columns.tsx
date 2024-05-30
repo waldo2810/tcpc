@@ -12,7 +12,8 @@ import {
 import { Checkbox } from "@radix-ui/react-checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import {
-  ArrowUpDown,
+  ClipboardList,
+  Eye,
   Facebook,
   Github,
   Globe,
@@ -20,6 +21,7 @@ import {
   MoreHorizontal,
   MoveDown,
   MoveUp,
+  PersonStanding,
   Twitter,
   Youtube,
 } from "lucide-react";
@@ -74,12 +76,27 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "name",
     header: () => "User".toUpperCase(),
+    cell: ({ row }) => <p className="font-medium">{row.getValue("name")}</p>,
   },
   {
     accessorKey: "userRole",
     header: () => "Role".toUpperCase(),
     cell: ({ row }) => {
-      return <Badge>{row.getValue("userRole")}</Badge>;
+      const value: UserRole = row.getValue("userRole");
+      return (
+        <Badge variant={value}>
+          <div className="flex items-center gap-2">
+            {value === "Administrator" ? (
+              <ClipboardList size={20} />
+            ) : value === "Viewer" ? (
+              <Eye size={20} />
+            ) : value === "Moderator" ? (
+              <PersonStanding size={20} />
+            ) : null}
+            {value}
+          </div>
+        </Badge>
+      );
     },
   },
   {
@@ -124,22 +141,22 @@ export const columns: ColumnDef<User>[] = [
       let Icon = <Link />;
       switch (socialMedia) {
         case "Facebook":
-          Icon = <Facebook />;
+          Icon = <Facebook className="text-slate-500" size={20} />;
           break;
         case "Github":
-          Icon = <Github />;
+          Icon = <Github className="text-slate-500" size={20} />;
           break;
         case "LinkedIn":
-          Icon = <Facebook />;
+          Icon = <Facebook className="text-slate-500" size={20} />;
           break;
         case "Twitter":
-          Icon = <Twitter />;
+          Icon = <Twitter className="text-slate-500" size={20} />;
           break;
         case "Website":
-          Icon = <Globe />;
+          Icon = <Globe className="text-slate-500" size={20} />;
           break;
         case "YouTube":
-          Icon = <Youtube />;
+          Icon = <Youtube className="text-slate-500" size={20} />;
           break;
         default:
           Icon;
@@ -167,11 +184,11 @@ export const columns: ColumnDef<User>[] = [
       return (
         <div className="flex items-center gap-2">
           {value > 4.0 ? (
-            <MoveUp className="text-green-500" size={20} />
+            <MoveUp className="text-green-600" size={20} />
           ) : (
-            <MoveDown className="text-red-500" size={20} />
+            <MoveDown className="text-red-600" size={20} />
           )}
-          {value}
+          <p className="font-medium">{value}</p>
         </div>
       );
     },
@@ -180,7 +197,9 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: "lastLogin",
     header: "Last login".toUpperCase(),
     cell: ({ row }) => (
-      <p>{new Date(row.getValue("lastLogin")).toDateString()}</p>
+      <p className="text-slate-500 font-medium">
+        {new Date(row.getValue("lastLogin")).toDateString()}
+      </p>
     ),
   },
   {
@@ -201,11 +220,10 @@ export const columns: ColumnDef<User>[] = [
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(payment.id)}
             >
-              Copy payment ID
+              Copy User ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>Edit user</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
