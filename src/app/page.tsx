@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/button";
+import CreateUserDialog from "@/components/dialogs/create-user";
 import { User, columns } from "@/components/users-table/columns";
 import { UsersTable } from "@/components/users-table/table";
-import { Plus } from "lucide-react";
 
 async function getData(): Promise<User[]> {
   return [
@@ -53,10 +52,7 @@ export default async function Home() {
   return (
     <div className="min-h-screen max-w-5xl flex items-center justify-center mx-auto">
       <div className="w-[90%] md:w-full flex flex-col gap-2">
-        <Button className="flex items-center gap-2 w-36 text-sm p-1">
-          <Plus size={18} />
-          Add new user
-        </Button>
+        <CreateUserDialog />
         <UsersTable columns={columns} data={data} />
       </div>
     </div>
