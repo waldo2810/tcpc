@@ -7,7 +7,10 @@ async function getData(): Promise<User[]> {
   return [
     {
       id: "1",
-      name: "Alice Johnson",
+      profile: {
+        name: "Alice Johnson",
+        pfp: "https://i.ibb.co/P6kppMh/Avatar.jpg",
+      },
       userRole: "Administrator",
       status: "Active",
       socialProfile: "https://twitter.com/alicejohnson",
@@ -17,7 +20,10 @@ async function getData(): Promise<User[]> {
     },
     {
       id: "2",
-      name: "Bob Smith",
+      profile: {
+        name: "Bob Smith",
+        pfp: "https://i.ibb.co/P6kppMh/Avatar.jpg",
+      },
       userRole: "Viewer",
       status: "Inactive",
       socialProfile: "https://linkedin.com/in/bobsmith",
@@ -27,97 +33,10 @@ async function getData(): Promise<User[]> {
     },
     {
       id: "3",
-      name: "Carol Williams",
-      userRole: "Moderator",
-      status: "Active",
-      socialProfile: "https://facebook.com/carolwilliams",
-      promote: true,
-      rating: 4.2,
-      lastLogin: "2024-05-28T16:45:00Z",
-    },
-    {
-      id: "3",
-      name: "Carol Williams",
-      userRole: "Moderator",
-      status: "Active",
-      socialProfile: "https://facebook.com/carolwilliams",
-      promote: true,
-      rating: 4.2,
-      lastLogin: "2024-05-28T16:45:00Z",
-    },
-    {
-      id: "3",
-      name: "Carol Williams",
-      userRole: "Moderator",
-      status: "Active",
-      socialProfile: "https://facebook.com/carolwilliams",
-      promote: true,
-      rating: 4.2,
-      lastLogin: "2024-05-28T16:45:00Z",
-    },
-    {
-      id: "3",
-      name: "Carol Williams",
-      userRole: "Moderator",
-      status: "Active",
-      socialProfile: "https://facebook.com/carolwilliams",
-      promote: true,
-      rating: 4.2,
-      lastLogin: "2024-05-28T16:45:00Z",
-    },
-    {
-      id: "3",
-      name: "Carol Williams",
-      userRole: "Moderator",
-      status: "Active",
-      socialProfile: "https://facebook.com/carolwilliams",
-      promote: true,
-      rating: 4.2,
-      lastLogin: "2024-05-28T16:45:00Z",
-    },
-    {
-      id: "3",
-      name: "Carol Williams",
-      userRole: "Moderator",
-      status: "Active",
-      socialProfile: "https://facebook.com/carolwilliams",
-      promote: true,
-      rating: 4.2,
-      lastLogin: "2024-05-28T16:45:00Z",
-    },
-    {
-      id: "3",
-      name: "Carol Williams",
-      userRole: "Moderator",
-      status: "Active",
-      socialProfile: "https://facebook.com/carolwilliams",
-      promote: true,
-      rating: 4.2,
-      lastLogin: "2024-05-28T16:45:00Z",
-    },
-    {
-      id: "3",
-      name: "Carol Williams",
-      userRole: "Moderator",
-      status: "Active",
-      socialProfile: "https://facebook.com/carolwilliams",
-      promote: true,
-      rating: 4.2,
-      lastLogin: "2024-05-28T16:45:00Z",
-    },
-    {
-      id: "3",
-      name: "Carol Williams",
-      userRole: "Moderator",
-      status: "Active",
-      socialProfile: "https://facebook.com/carolwilliams",
-      promote: true,
-      rating: 4.2,
-      lastLogin: "2024-05-28T16:45:00Z",
-    },
-    {
-      id: "3",
-      name: "Carol Williams",
+      profile: {
+        name: "Carol Williams",
+        pfp: "https://i.ibb.co/P6kppMh/Avatar.jpg",
+      },
       userRole: "Moderator",
       status: "Active",
       socialProfile: "https://facebook.com/carolwilliams",
@@ -133,9 +52,9 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen max-w-5xl flex items-center justify-center mx-auto">
-      <div className="w-[90%] md:w-full">
-        <Button className="flex items-center gap-2" size="sm">
-          <Plus size={20} />
+      <div className="w-[90%] md:w-full flex flex-col gap-2">
+        <Button className="flex items-center gap-2 w-36 text-sm p-1">
+          <Plus size={18} />
           Add new user
         </Button>
         <UsersTable columns={columns} data={data} />

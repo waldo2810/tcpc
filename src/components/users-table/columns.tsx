@@ -41,9 +41,14 @@ export type UserRole = "Administrator" | "Viewer" | "Moderator";
 
 export type UserStatus = "Active" | "Inactive";
 
+export type UserProfile = {
+  name: string;
+  pfp: string;
+};
+
 export type User = {
   id: string;
-  name: string;
+  profile: UserProfile;
   userRole: UserRole;
   status: UserStatus;
   socialProfile: SocialProfile;
@@ -74,9 +79,18 @@ export const columns: ColumnDef<User>[] = [
     ),
   },
   {
-    accessorKey: "name",
+    accessorKey: "profile",
     header: () => "User".toUpperCase(),
-    cell: ({ row }) => <p className="font-medium">{row.getValue("name")}</p>,
+    cell: ({ row }) => {
+      const profile: UserProfile = row.getValue("profile");
+      console.log(profile);
+      return (
+        <div className="flex items-center gap-2">
+          <img src={profile.pfp} alt="avatar" />
+          <p className="font-medium">{profile.name}</p>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "userRole",

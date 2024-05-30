@@ -98,8 +98,8 @@ export function UsersTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      <div className="w-full flex items-center justify-between">
-        <div className="flex items-center p-4 gap-2">
+      <div className="w-full flex items-center justify-between border-t-2">
+        <div className="flex items-center p-4 py-2 gap-2">
           <p className="text-sm text-slate-500">Rows per page</p>
           <Select>
             <SelectTrigger className="w-16 text-xs py-2">
@@ -116,7 +116,7 @@ export function UsersTable<TData, TValue>({
             <span className="font-medium"> {"totalrecords"}</span>
           </p>
         </div>
-        <div className="flex items-center p-4">
+        <div className="flex items-center p-4 py-2">
           <Button
             variant="outline"
             size="sm"
