@@ -94,7 +94,14 @@ export const columns: ColumnDef<User>[] = [
       console.log(profile);
       return (
         <div className="flex items-center gap-2">
-          <img src={profile.pfp} alt="avatar" />
+          <img
+            src={
+              profile.pfp ??
+              "https://vercel.com/api/www/avatar/FBeKboUvbe5zD2X4m4yoeKbs?&s=64"
+            }
+            alt="avatar"
+            className="rounded-full h-10 w-10"
+          />
           <p className="font-medium">{profile.name}</p>
         </div>
       );
@@ -160,7 +167,7 @@ export const columns: ColumnDef<User>[] = [
         : value.includes("youtube")
         ? "YouTube"
         : "Website";
-      let Icon = <Link />;
+      let Icon = undefined;
       switch (socialMedia) {
         case "Facebook":
           Icon = <Facebook className="text-slate-500" size={20} />;
@@ -185,8 +192,8 @@ export const columns: ColumnDef<User>[] = [
           break;
       }
       return (
-        <a href={value} className="flex items-center gap-2">
-          {Icon}
+        <a href={value} className="flex items-center justify-center gap-2">
+          {Icon ?? null}
         </a>
       );
     },
