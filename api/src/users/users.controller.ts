@@ -20,7 +20,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  async getUserById(@Param('id') id: number) {
+  async getUserById(@Param('id') id: number): Promise<User> {
     try {
       return await this.userService.getById(id);
     } catch (error) {
@@ -29,12 +29,12 @@ export class UsersController {
   }
 
   @Post()
-  async createUser(@Body() user: any) {
+  async createUser(@Body() user: any): Promise<User> {
     return await this.userService.save(user);
   }
 
   @Put(':id')
-  async updateUser(@Param('id') id: number, @Body() user: any) {
+  async updateUser(@Param('id') id: number, @Body() user: any): Promise<User> {
     try {
       return await this.userService.update(id, user);
     } catch (error) {
@@ -43,7 +43,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  async deleteUser(@Param('id') id: number) {
+  async deleteUser(@Param('id') id: number): Promise<User> {
     try {
       return await this.userService.delete(id);
     } catch (error) {
