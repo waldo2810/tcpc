@@ -21,15 +21,27 @@ import { SubmitHandler, useForm } from "react-hook-form";
 export type CreateUserRequest = {
   name: string;
   pfp: string;
-  role: string;
-  socials: string[];
+  userRole?: string;
+  socialProfile: string;
 };
 
 export default function CreateUserForm() {
   const form = useForm<CreateUserRequest>();
 
-  const onSubmit: SubmitHandler<CreateUserRequest> = (data) =>
-    console.log(data);
+  const onSubmit: SubmitHandler<CreateUserRequest> = async (data) => {
+    const res = await fetch("http://localhost:3001/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      console.log("ERROR");
+    }
+    const info = await res.json();
+    console.log(info);
+  };
 
   return (
     <Form {...form}>
@@ -53,14 +65,14 @@ export default function CreateUserForm() {
             <FormItem>
               <FormLabel>Picture</FormLabel>
               <FormControl>
-                <Input placeholder="pfp" {...field} type="file" required />
+                <Input placeholder="pfp" {...field} type="file" />
               </FormControl>
             </FormItem>
           )}
         />
         <FormField
           control={form.control}
-          name="role"
+          name="userRole"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Role*</FormLabel>
@@ -71,9 +83,9 @@ export default function CreateUserForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="admin">Administrator</SelectItem>
-                  <SelectItem value="mod">Moderator</SelectItem>
-                  <SelectItem value="viewer">Viewer</SelectItem>
+                  <SelectItem value="Administrator">Administrator</SelectItem>
+                  <SelectItem value="Moderator">Moderator</SelectItem>
+                  <SelectItem value="Viewer">Viewer</SelectItem>
                 </SelectContent>
               </Select>
             </FormItem>
@@ -81,7 +93,7 @@ export default function CreateUserForm() {
         />
         <FormField
           control={form.control}
-          name="socials"
+          name="socialProfile"
           render={({ field }) => (
             <FormItem>
               <FormLabel>A social media link*</FormLabel>
