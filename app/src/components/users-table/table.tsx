@@ -113,7 +113,7 @@ export function UsersTable<TData, TValue>({
           </Select>
           <p className="text-sm">
             <span className="font-medium">fromWhere-{"pageSize"}</span> out of
-            <span className="font-medium"> {"totalrecords"}</span>
+            <span className="font-medium"> {data.length}</span>
           </p>
         </div>
         <div className="flex items-center p-4 py-2">

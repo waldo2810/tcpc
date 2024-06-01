@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
 import CreateUserForm from "./form";
+import { createUser } from "@/app/actions/create-user";
 
 export default function CreateUserDialog() {
   return (
@@ -18,7 +19,7 @@ export default function CreateUserDialog() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create a new user</DialogTitle>
-          <CreateUserForm />
+          <CreateUserForm handleSubmit={createUser} />
         </DialogHeader>
       </DialogContent>
     </Dialog>

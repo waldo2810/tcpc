@@ -25,7 +25,13 @@ export type EditUserRequest = {
   socialProfile: string;
 };
 
-export default function EditUserForm({ user }: { user: User }) {
+export default function EditUserForm({
+  user,
+  handleSubmit,
+}: {
+  user: User;
+  handleSubmit: any;
+}) {
   const form = useForm<EditUserRequest>({
     defaultValues: {
       name: user.profile.name,
@@ -34,22 +40,9 @@ export default function EditUserForm({ user }: { user: User }) {
     },
   });
 
-  const onSubmit: SubmitHandler<EditUserRequest> = async (data) => {
-    const res = await fetch(`http://localhost:3001/users/${user.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...data,
-        pfp: "https://vercel.com/api/www/avatar/FBeKboUvbe5zD2X4m4yoeKbs?&s=64",
-        status: "Inactive",
-      }),
-    });
-    if (!res.ok) {
-      console.log("ERROR");
-    }
-  };
+  const onSubmit: SubmitHandler<EditUserRequest> = async (data) =>
+    handleSubmit(user.id, data);
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">

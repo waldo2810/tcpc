@@ -1,5 +1,6 @@
 "use client";
 
+import { createUser } from "@/app/actions/create-user";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -24,23 +25,15 @@ export type CreateUserRequest = {
   socialProfile: string;
 };
 
-export default function CreateUserForm() {
+export default function CreateUserForm({
+  handleSubmit,
+}: {
+  handleSubmit: any;
+}) {
   const form = useForm<CreateUserRequest>();
 
-  const onSubmit: SubmitHandler<CreateUserRequest> = async (data) => {
-    const res = await fetch("http://localhost:3001/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({...data, pfp: 'https://vercel.com/api/www/avatar/FBeKboUvbe5zD2X4m4yoeKbs?&s=64'}),
-    });
-    if (!res.ok) {
-      console.log("ERROR");
-    }
-    const info = await res.json();
-    console.log(info);
-  };
+  const onSubmit: SubmitHandler<CreateUserRequest> = async (data) =>
+    handleSubmit(data);
 
   return (
     <Form {...form}>

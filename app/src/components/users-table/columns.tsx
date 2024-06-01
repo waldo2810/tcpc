@@ -35,6 +35,7 @@ import {
 import EditUserForm from "../dialogs/edit-user/form";
 import { Badge } from "../ui/badge";
 import { Switch } from "../ui/switch";
+import { updateUser } from "@/app/actions/update-user";
 
 export type SocialProfile =
   | "Facebook"
@@ -260,7 +261,7 @@ export const columns: ColumnDef<User>[] = [
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Edit user</DialogTitle>
-              <EditUserForm user={payment} />
+              <EditUserForm user={payment} handleSubmit={updateUser} />
             </DialogHeader>
           </DialogContent>
         </Dialog>
