@@ -12,7 +12,6 @@ export async function updateUser(userId: number, data: EditUserRequest) {
     body: JSON.stringify({
       ...data,
       pfp: "https://vercel.com/api/www/avatar/FBeKboUvbe5zD2X4m4yoeKbs?&s=64",
-      status: "Inactive",
     }),
   });
   revalidateTag("users");

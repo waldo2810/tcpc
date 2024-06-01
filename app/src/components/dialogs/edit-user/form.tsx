@@ -23,6 +23,8 @@ export type EditUserRequest = {
   name: string;
   userRole: string;
   socialProfile: string;
+  rating: string;
+  status: "Active" | "Inactive";
 };
 
 export default function EditUserForm({
@@ -37,6 +39,8 @@ export default function EditUserForm({
       name: user.profile.name,
       userRole: user.userRole,
       socialProfile: user.socialProfile,
+      status: user.status,
+      rating: user.rating.toString(),
     },
   });
 
@@ -51,9 +55,9 @@ export default function EditUserForm({
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name*</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Your user name..." {...field} required />
+                <Input placeholder="Your user name..." {...field} />
               </FormControl>
             </FormItem>
           )}
@@ -63,7 +67,7 @@ export default function EditUserForm({
           name="userRole"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Role*</FormLabel>
+              <FormLabel>Role</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -81,16 +85,58 @@ export default function EditUserForm({
         />
         <FormField
           control={form.control}
+          name="status"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Status*</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a status" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="Active">
+                    <div className="flex items-center gap-2">
+                      <div className="h-2 w-2 bg-green-500 rounded-full" />
+                      <p>Active</p>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="Inactive">
+                    {" "}
+                    <div className="flex items-center gap-2">
+                      <div className="h-2 w-2 bg-red-500 rounded-full" />
+                      <p>Inactive</p>
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="socialProfile"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>A social media link*</FormLabel>
+              <FormLabel>A social media link</FormLabel>
               <FormControl>
                 <Input
                   placeholder="LinkedIn, Twitter, Instagram..."
                   {...field}
-                  required
                 />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="rating"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Rating</FormLabel>
+              <FormControl>
+                <Input placeholder="5.0, 4.5, 4.0..." {...field} />
               </FormControl>
             </FormItem>
           )}
