@@ -1,10 +1,11 @@
 "use server";
 
 import { CreateUserRequest } from "@/components/dialogs/create-user/form";
+import { API_URL } from "@/lib/constants";
 import { revalidateTag } from "next/cache";
 
 export async function createUser(data: CreateUserRequest) {
-  await fetch("http://localhost:3001/users", {
+  await fetch(API_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,9 +1,10 @@
 "use server";
 
+import { API_URL } from "@/lib/constants";
 import { revalidateTag } from "next/cache";
 
 export async function getUsers(): Promise<User[]> {
-  const url = "http://localhost:3001/users";
+  const url = `${API_URL}/users`;
   const res = await fetch(`${url}`, {
     next: { tags: ["users"] },
   });
