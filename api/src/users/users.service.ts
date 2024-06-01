@@ -65,6 +65,10 @@ export class UsersService {
     return mapUserEntityToUser(res.rows[0]);
   }
 
+  async deleteAll(): Promise<void> {
+    await this.conn.query(userQueries.deleteAll);
+  }
+
   async promoteUser(id: number, checked: boolean): Promise<void> {
     await this.conn.query(userQueries.promote, [checked, id]);
   }

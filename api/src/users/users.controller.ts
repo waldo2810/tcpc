@@ -56,6 +56,15 @@ export class UsersController {
     }
   }
 
+  @Delete()
+  async deleteAll(): Promise<void> {
+    try {
+      await this.userService.deleteAll();
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
   @Delete(':id')
   async deleteUser(@Param('id') id: number): Promise<User> {
     try {

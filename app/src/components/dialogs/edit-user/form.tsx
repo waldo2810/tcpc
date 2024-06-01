@@ -16,7 +16,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { User } from "@/components/users-table/columns";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export type EditUserRequest = {
@@ -45,7 +44,7 @@ export default function EditUserForm({
   });
 
   const onSubmit: SubmitHandler<EditUserRequest> = async (data) =>
-    handleSubmit(user.id, data);
+    await handleSubmit(user.id, data);
 
   return (
     <Form {...form}>

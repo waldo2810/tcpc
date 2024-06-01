@@ -1,6 +1,5 @@
 "use client";
 
-import { createUser } from "@/app/actions/create-user";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -33,7 +32,7 @@ export default function CreateUserForm({
   const form = useForm<CreateUserRequest>();
 
   const onSubmit: SubmitHandler<CreateUserRequest> = async (data) =>
-    handleSubmit(data);
+    await handleSubmit(data);
 
   return (
     <Form {...form}>

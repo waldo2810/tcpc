@@ -1,3 +1,4 @@
+import { deleteUser } from "@/app/actions/delete-user";
 import { updateUser } from "@/app/actions/update-user";
 import EditUserForm from "@/components/dialogs/edit-user/form";
 import { Button } from "@/components/ui/button";
@@ -38,6 +39,9 @@ export const Actions = ({ user }: { user: User }) => {
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <DialogTrigger>Edit user</DialogTrigger>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => deleteUser(user.id)}>
+            Delete user
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

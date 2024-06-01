@@ -1,8 +1,9 @@
 "use server";
 
+import { CreateUserRequest } from "@/components/dialogs/create-user/form";
 import { revalidateTag } from "next/cache";
 
-export async function createUser(data: any) {
+export async function createUser(data: CreateUserRequest) {
   await fetch("http://localhost:3001/users", {
     method: "POST",
     headers: {
