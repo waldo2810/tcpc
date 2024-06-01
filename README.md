@@ -1,6 +1,4 @@
-# Sbrk
-
-Simple to-do list app.
+# Users CRUD
 
 ## Stack
 - Next
