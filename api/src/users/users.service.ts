@@ -1,25 +1,29 @@
 import {
   BadRequestException,
-  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PG_CONNECTION } from 'src/db/db.module';
-import { mapUserEntityToUser } from './mapper/user-to-entity';
+import { Pool } from 'pg';
+import { DatabaseService } from 'src/db/db.service';
 import { userQueries } from './helpers/queries';
+import { mapUserEntityToUser } from './mapper/user-to-entity';
 
 @Injectable()
 export class UsersService {
-  constructor(@Inject(PG_CONNECTION) private conn: any) {}
+  private pool: Pool;
 
+  constructor(private databaseService: DatabaseService) {
+    this.pool = this.databaseService.getPool();
+  }
   async getUsers(): Promise<User[]> {
-    const res = await this.conn.query(userQueries.selectAll);
+    console.log(this.pool);
+    const res = await this.pool.query(userQueries.selectAll);
     const userEntityList = res.rows as UserEntity[];
     return userEntityList.map((e) => mapUserEntityToUser(e));
   }
 
   async getById(id: number): Promise<User> {
-    const res = await this.conn.query(userQueries.selectById, [id]);
+    const res = await this.pool.query(userQueries.selectById, [id]);
     if (res.rows.length === 0) {
       throw new NotFoundException(`User with id ${id} not found.`);
     }
@@ -27,7 +31,7 @@ export class UsersService {
   }
 
   async save(user: any): Promise<User> {
-    const res = await this.conn.query(userQueries.save, [
+    const res = await this.pool.query(userQueries.save, [
       user.name,
       user.pfp,
       user.socialProfile,
@@ -42,7 +46,7 @@ export class UsersService {
   }
 
   async update(id: number, user: any): Promise<User> {
-    const res = await this.conn.query(userQueries.update, [
+    const res = await this.pool.query(userQueries.update, [
       user.name,
       user.pfp,
       user.socialProfile,
@@ -58,7 +62,7 @@ export class UsersService {
   }
 
   async delete(id: number): Promise<User> {
-    const res = await this.conn.query(userQueries.delete, [id]);
+    const res = await this.pool.query(userQueries.delete, [id]);
     if (res.rows.length === 0) {
       throw new BadRequestException(`User with id ${id} not found.`);
     }
@@ -66,10 +70,10 @@ export class UsersService {
   }
 
   async deleteAll(): Promise<void> {
-    await this.conn.query(userQueries.deleteAll);
+    await this.pool.query(userQueries.deleteAll);
   }
 
   async promoteUser(id: number, checked: boolean): Promise<void> {
-    await this.conn.query(userQueries.promote, [checked, id]);
+    await this.pool.query(userQueries.promote, [checked, id]);
   }
 }
