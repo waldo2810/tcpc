@@ -41,23 +41,24 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "profile",
+    accessorFn: (user) => user.profile.name,
     header: () => "User".toUpperCase(),
-    cell: ({ row }) => <UserProfile profile={row.getValue("profile")} />,
+    cell: ({ row }) => <UserProfile profile={row.original.profile} />,
   },
   {
     accessorKey: "userRole",
     header: () => "Role".toUpperCase(),
-    cell: ({ row }) => <UserRole role={row.getValue("userRole")} />,
+    cell: ({ row }) => <UserRole role={row.original.userRole} />,
   },
   {
     accessorKey: "status",
     header: "Status".toUpperCase(),
-    cell: ({ row }) => <UserStatus status={row.getValue("status")} />,
+    cell: ({ row }) => <UserStatus status={row.original.status} />,
   },
   {
     accessorKey: "socialProfile",
     header: "Social Profile".toUpperCase(),
-    cell: ({ row }) => <SocialProfile value={row.getValue("socialProfile")} />,
+    cell: ({ row }) => <SocialProfile value={row.original.socialProfile} />,
   },
   {
     accessorKey: "promote",
@@ -67,14 +68,14 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "rating",
     header: "Rating".toUpperCase(),
-    cell: ({ row }) => <UserRating rating={row.getValue("rating")} />,
+    cell: ({ row }) => <UserRating rating={row.original.rating} />,
   },
   {
     accessorKey: "lastLogin",
     header: "Last login".toUpperCase(),
     cell: ({ row }) => (
       <p className="text-slate-500 font-medium">
-        {new Date(row.getValue("lastLogin")).toDateString()}
+        {new Date(row.original.lastLogin).toDateString()}
       </p>
     ),
   },
