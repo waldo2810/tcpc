@@ -15,22 +15,22 @@ export const SocialProfile = ({ value }: { value: SocialProfile }) => {
   let Icon = undefined;
   switch (socialMedia) {
     case "Facebook":
-      Icon = <Facebook className="text-slate-500" size={20} />;
+      Icon = <Facebook className="text-slate-500" size={16} />;
       break;
     case "Github":
-      Icon = <Github className="text-slate-500" size={20} />;
+      Icon = <Github className="text-slate-500" size={16} />;
       break;
     case "LinkedIn":
-      Icon = <Facebook className="text-slate-500" size={20} />;
+      Icon = <Facebook className="text-slate-500" size={16} />;
       break;
     case "Twitter":
-      Icon = <Twitter className="text-slate-500" size={20} />;
+      Icon = <Twitter className="text-slate-500" size={16} />;
       break;
     case "Website":
-      Icon = <Globe className="text-slate-500" size={20} />;
+      Icon = <Globe className="text-slate-500" size={16} />;
       break;
     case "YouTube":
-      Icon = <Youtube className="text-slate-500" size={20} />;
+      Icon = <Youtube className="text-slate-500" size={16} />;
       break;
     default:
       Icon;
