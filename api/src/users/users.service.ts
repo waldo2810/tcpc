@@ -16,7 +16,6 @@ export class UsersService {
     this.pool = this.databaseService.getPool();
   }
   async getUsers(): Promise<User[]> {
-    console.log(this.pool);
     const res = await this.pool.query(userQueries.selectAll);
     const userEntityList = res.rows as UserEntity[];
     return userEntityList.map((e) => mapUserEntityToUser(e));
