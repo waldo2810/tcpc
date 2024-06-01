@@ -1,39 +1,14 @@
 "use client";
 
-import { updateUser } from "@/app/actions/update-user";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@radix-ui/react-checkbox";
 import { ColumnDef } from "@tanstack/react-table";
-import {
-  Facebook,
-  Github,
-  Globe,
-  MoreHorizontal,
-  Twitter,
-  Youtube,
-} from "lucide-react";
-import EditUserForm from "../dialogs/edit-user/form";
-import { Switch } from "../ui/switch";
+import { Actions } from "./components/actions";
 import { UserProfile } from "./components/profile";
+import { UserPromote } from "./components/promote";
 import { UserRating } from "./components/rating";
 import { UserRole } from "./components/role";
+import { SocialProfile } from "./components/social";
 import { UserStatus } from "./components/status";
-import { UserPromote } from "./components/promote";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -55,6 +30,8 @@ export const columns: ColumnDef<User>[] = [
         aria-label="Select row"
       />
     ),
+    enableSorting: false,
+    enableHiding: false,
   },
   {
     accessorKey: "profile",
@@ -74,49 +51,7 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "socialProfile",
     header: "Social Profile".toUpperCase(),
-    cell: ({ row }) => {
-      const value: SocialProfile = row.getValue("socialProfile");
-      const socialMedia = value.includes("twitter")
-        ? "Twitter"
-        : value.includes("Facebook")
-        ? "Facebook"
-        : value.includes("github")
-        ? "Github"
-        : value.includes("linkedin")
-        ? "LinkedIn"
-        : value.includes("youtube")
-        ? "YouTube"
-        : "Website";
-      let Icon = undefined;
-      switch (socialMedia) {
-        case "Facebook":
-          Icon = <Facebook className="text-slate-500" size={20} />;
-          break;
-        case "Github":
-          Icon = <Github className="text-slate-500" size={20} />;
-          break;
-        case "LinkedIn":
-          Icon = <Facebook className="text-slate-500" size={20} />;
-          break;
-        case "Twitter":
-          Icon = <Twitter className="text-slate-500" size={20} />;
-          break;
-        case "Website":
-          Icon = <Globe className="text-slate-500" size={20} />;
-          break;
-        case "YouTube":
-          Icon = <Youtube className="text-slate-500" size={20} />;
-          break;
-        default:
-          Icon;
-          break;
-      }
-      return (
-        <a href={value} className="flex items-center justify-center gap-2">
-          {Icon ?? null}
-        </a>
-      );
-    },
+    cell: ({ row }) => <SocialProfile value={row.getValue("socialProfile")} />,
   },
   {
     accessorKey: "promote",
@@ -139,38 +74,6 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      const payment = row.original;
-      return (
-        <Dialog>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(payment.id)}
-              >
-                Copy User ID
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <DialogTrigger>Edit user</DialogTrigger>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Edit user</DialogTitle>
-              <EditUserForm user={payment} handleSubmit={updateUser} />
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
-      );
-    },
+    cell: ({ row }) => <Actions user={row.original} />,
   },
 ];
