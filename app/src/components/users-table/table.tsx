@@ -121,24 +121,7 @@ export function UsersTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
-        <div className="w-full flex items-center justify-between border-t-2">
-          <div className="flex items-center p-4 py-2 gap-2">
-            <p className="text-sm text-slate-500">Rows per page</p>
-            <Select>
-              <SelectTrigger className="w-16 text-xs py-2">
-                <SelectValue placeholder="1" />
-              </SelectTrigger>
-              <SelectContent className="text-xs">
-                <SelectItem value="10">10</SelectItem>
-                <SelectItem value="50">50</SelectItem>
-                <SelectItem value="100">100</SelectItem>
-              </SelectContent>
-            </Select>
-            <p className="text-sm">
-              <span className="font-medium">fromWhere-{"pageSize"}</span> out of
-              <span className="font-medium"> {data.length}</span>
-            </p>
-          </div>
+        <div className="w-full flex items-center justify-end border-t-2">
           <div className="flex items-center p-4 py-2">
             <Button
               variant="outline"
