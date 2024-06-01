@@ -1,4 +1,9 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PG_CONNECTION } from 'src/db/db.module';
 import { mapUserEntityToUser } from './mapper/user-to-entity';
 import { userQueries } from './helpers/queries';
@@ -47,7 +52,7 @@ export class UsersService {
       id,
     ]);
     if (res.rows.length === 0) {
-      throw new NotFoundException(`User with id ${id} not found.`);
+      throw new BadRequestException(`User with id ${id} not found.`);
     }
     return mapUserEntityToUser(res.rows[0]);
   }
@@ -55,8 +60,12 @@ export class UsersService {
   async delete(id: number): Promise<User> {
     const res = await this.conn.query(userQueries.delete, [id]);
     if (res.rows.length === 0) {
-      throw new NotFoundException(`User with id ${id} not found.`);
+      throw new BadRequestException(`User with id ${id} not found.`);
     }
     return mapUserEntityToUser(res.rows[0]);
+  }
+
+  async promoteUser(id: number, checked: boolean): Promise<void> {
+    await this.conn.query(userQueries.promote, [checked, id]);
   }
 }

@@ -3,10 +3,12 @@ import {
   Controller,
   Delete,
   Get,
-  NotFoundException,
+  BadRequestException,
   Param,
   Post,
   Put,
+  Query,
+  NotFoundException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
@@ -33,12 +35,24 @@ export class UsersController {
     return await this.userService.save(user);
   }
 
+  @Put('promote')
+  async promoteUser(
+    @Query('id') id: number,
+    @Body() payload: { checked: boolean },
+  ): Promise<void> {
+    try {
+      await this.userService.promoteUser(id, payload.checked);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
   @Put(':id')
   async updateUser(@Param('id') id: number, @Body() user: any): Promise<User> {
     try {
       return await this.userService.update(id, user);
     } catch (error) {
-      throw new NotFoundException(error.message);
+      throw new BadRequestException(error.message);
     }
   }
 
@@ -47,7 +61,7 @@ export class UsersController {
     try {
       return await this.userService.delete(id);
     } catch (error) {
-      throw new NotFoundException(error.message);
+      throw new BadRequestException(error.message);
     }
   }
 }

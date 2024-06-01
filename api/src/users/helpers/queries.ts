@@ -5,4 +5,5 @@ export const userQueries = {
   update:
     'UPDATE users SET name = $1, pfp = $2, social_profile = $3, user_role = $4, status = $5, rating = $6 WHERE id = $7 RETURNING *',
   delete: 'DELETE FROM users WHERE id = $1 RETURNING *',
+  promote: 'UPDATE users SET promote = $1 WHERE id = $2',
 };

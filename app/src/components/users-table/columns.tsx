@@ -1,5 +1,6 @@
 "use client";
 
+import { updateUser } from "@/app/actions/update-user";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,52 +20,20 @@ import {
 import { Checkbox } from "@radix-ui/react-checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import {
-  ClipboardList,
-  Eye,
   Facebook,
   Github,
   Globe,
-  Link,
   MoreHorizontal,
-  MoveDown,
-  MoveUp,
-  PersonStanding,
   Twitter,
   Youtube,
 } from "lucide-react";
 import EditUserForm from "../dialogs/edit-user/form";
-import { Badge } from "../ui/badge";
 import { Switch } from "../ui/switch";
-import { updateUser } from "@/app/actions/update-user";
-
-export type SocialProfile =
-  | "Facebook"
-  | "Github"
-  | "LinkedIn"
-  | "Twitter"
-  | "Website"
-  | "YouTube"
-  | string;
-
-export type UserRole = "Administrator" | "Viewer" | "Moderator";
-
-export type UserStatus = "Active" | "Inactive";
-
-export type UserProfile = {
-  name: string;
-  pfp: string;
-};
-
-export type User = {
-  id: string;
-  profile: UserProfile;
-  userRole: UserRole;
-  status: UserStatus;
-  socialProfile: SocialProfile;
-  promote: boolean;
-  rating: number;
-  lastLogin: string;
-};
+import { UserProfile } from "./components/profile";
+import { UserRating } from "./components/rating";
+import { UserRole } from "./components/role";
+import { UserStatus } from "./components/status";
+import { UserPromote } from "./components/promote";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -90,67 +59,17 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "profile",
     header: () => "User".toUpperCase(),
-    cell: ({ row }) => {
-      const profile: UserProfile = row.getValue("profile");
-      console.log(profile);
-      return (
-        <div className="flex items-center gap-2">
-          <img
-            src={
-              profile.pfp ??
-              "https://vercel.com/api/www/avatar/FBeKboUvbe5zD2X4m4yoeKbs?&s=64"
-            }
-            alt="avatar"
-            className="rounded-full h-10 w-10"
-          />
-          <p className="font-medium">{profile.name}</p>
-        </div>
-      );
-    },
+    cell: ({ row }) => <UserProfile profile={row.getValue("profile")} />,
   },
   {
     accessorKey: "userRole",
     header: () => "Role".toUpperCase(),
-    cell: ({ row }) => {
-      const value: UserRole = row.getValue("userRole");
-      return (
-        <Badge variant={value}>
-          <div className="flex items-center gap-2">
-            {value === "Administrator" ? (
-              <ClipboardList size={20} />
-            ) : value === "Viewer" ? (
-              <Eye size={20} />
-            ) : value === "Moderator" ? (
-              <PersonStanding size={20} />
-            ) : null}
-            {value}
-          </div>
-        </Badge>
-      );
-    },
+    cell: ({ row }) => <UserRole role={row.getValue("userRole")} />,
   },
   {
     accessorKey: "status",
     header: "Status".toUpperCase(),
-    cell: ({ row }) => {
-      const value = row.getValue("status");
-      switch (value) {
-        case "Active":
-          return (
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 bg-green-500 rounded-full" />
-              <p>{value}</p>
-            </div>
-          );
-        case "Inactive":
-          return (
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 bg-red-500 rounded-full" />
-              <p>{value}</p>
-            </div>
-          );
-      }
-    },
+    cell: ({ row }) => <UserStatus status={row.getValue("status")} />,
   },
   {
     accessorKey: "socialProfile",
@@ -202,26 +121,12 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "promote",
     header: "Promote".toUpperCase(),
-    cell: ({ row }) => {
-      return <Switch checked={row.getValue("promote")} />;
-    },
+    cell: ({ row }) => <UserPromote user={row.original} />,
   },
   {
     accessorKey: "rating",
     header: "Rating".toUpperCase(),
-    cell: ({ row }) => {
-      const value: number = row.getValue("rating");
-      return (
-        <div className="flex items-center gap-2">
-          {value > 4.0 ? (
-            <MoveUp className="text-green-600" size={20} />
-          ) : (
-            <MoveDown className="text-red-600" size={20} />
-          )}
-          <p className="font-medium">{value}</p>
-        </div>
-      );
-    },
+    cell: ({ row }) => <UserRating rating={row.getValue("rating")} />,
   },
   {
     accessorKey: "lastLogin",

@@ -1,6 +1,5 @@
 "use server";
 
-import { User } from "@/components/users-table/columns";
 import { revalidateTag } from "next/cache";
 
 export async function getUsers(): Promise<User[]> {
