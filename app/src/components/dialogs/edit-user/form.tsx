@@ -16,20 +16,40 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { User } from "@/components/users-table/columns";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export type EditUserRequest = {
   name: string;
-  pfp: string;
-  role: string;
-  socials: string[];
+  userRole: string;
+  socialProfile: string;
 };
 
-export default function EditUserForm() {
-  const form = useForm<EditUserRequest>();
+export default function EditUserForm({ user }: { user: User }) {
+  const form = useForm<EditUserRequest>({
+    defaultValues: {
+      name: user.profile.name,
+      userRole: user.userRole,
+      socialProfile: user.socialProfile,
+    },
+  });
 
-  const onSubmit: SubmitHandler<EditUserRequest> = (data) => console.log(data);
-
+  const onSubmit: SubmitHandler<EditUserRequest> = async (data) => {
+    const res = await fetch(`http://localhost:3001/users/${user.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...data,
+        pfp: "https://vercel.com/api/www/avatar/FBeKboUvbe5zD2X4m4yoeKbs?&s=64",
+        status: "Inactive",
+      }),
+    });
+    if (!res.ok) {
+      console.log("ERROR");
+    }
+  };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
@@ -47,19 +67,7 @@ export default function EditUserForm() {
         />
         <FormField
           control={form.control}
-          name="pfp"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Picture</FormLabel>
-              <FormControl>
-                <Input placeholder="pfp" {...field} type="file" required />
-              </FormControl>
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="role"
+          name="userRole"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Role*</FormLabel>
@@ -70,9 +78,9 @@ export default function EditUserForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="admin">Administrator</SelectItem>
-                  <SelectItem value="mod">Moderator</SelectItem>
-                  <SelectItem value="viewer">Viewer</SelectItem>
+                  <SelectItem value="Administrator">Administrator</SelectItem>
+                  <SelectItem value="Moderator">Moderator</SelectItem>
+                  <SelectItem value="Viewer">Viewer</SelectItem>
                 </SelectContent>
               </Select>
             </FormItem>
@@ -80,7 +88,7 @@ export default function EditUserForm() {
         />
         <FormField
           control={form.control}
-          name="socials"
+          name="socialProfile"
           render={({ field }) => (
             <FormItem>
               <FormLabel>A social media link*</FormLabel>

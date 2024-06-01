@@ -35,11 +35,12 @@ export class UsersController {
 
   @Put(':id')
   async updateUser(@Param('id') id: number, @Body() user: any): Promise<User> {
-    try {
-      return await this.userService.update(id, user);
-    } catch (error) {
-      throw new NotFoundException(error.message);
-    }
+    return await this.userService.update(id, user);
+    // try {
+    //   return await this.userService.update(id, user);
+    // } catch (error) {
+    //   throw new NotFoundException(error.message);
+    // }
   }
 
   @Delete(':id')

@@ -41,18 +41,16 @@ export class UsersService {
       user.name,
       user.pfp,
       user.socialProfile,
-      user.promote,
-      user.rating,
-      user.lastLogin,
-      new Date(),
       user.userRole,
       user.status,
       id,
     ]);
-    if (res.rows.length === 0) {
-      throw new NotFoundException(`User with id ${id} not found.`);
-    }
-    return mapUserEntityToUser(res.rows[0]);
+    console.log(res.rows);
+    // if (res.rows.length === 0) {
+    //   throw new NotFoundException(`User with id ${id} not found.`);
+    // }
+    // return mapUserEntityToUser(res.rows[0]);
+    return {} as User;
   }
 
   async delete(id: number): Promise<User> {

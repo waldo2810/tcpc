@@ -260,7 +260,7 @@ export const columns: ColumnDef<User>[] = [
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Edit user</DialogTitle>
-              <EditUserForm />
+              <EditUserForm user={payment} />
             </DialogHeader>
           </DialogContent>
         </Dialog>

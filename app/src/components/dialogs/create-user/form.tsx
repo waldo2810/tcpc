@@ -20,7 +20,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 export type CreateUserRequest = {
   name: string;
-  pfp: string;
   userRole?: string;
   socialProfile: string;
 };
@@ -34,7 +33,7 @@ export default function CreateUserForm() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({...data, pfp: 'https://vercel.com/api/www/avatar/FBeKboUvbe5zD2X4m4yoeKbs?&s=64'}),
     });
     if (!res.ok) {
       console.log("ERROR");
@@ -54,18 +53,6 @@ export default function CreateUserForm() {
               <FormLabel>Name*</FormLabel>
               <FormControl>
                 <Input placeholder="Your user name..." {...field} required />
-              </FormControl>
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="pfp"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Picture</FormLabel>
-              <FormControl>
-                <Input placeholder="pfp" {...field} type="file" />
               </FormControl>
             </FormItem>
           )}
